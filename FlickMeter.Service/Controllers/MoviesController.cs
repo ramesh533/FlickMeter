@@ -22,7 +22,16 @@ namespace FlickMeter.Service.Controllers
 
         public IEnumerable<MovieModel> Get()
         {
-            return _unitOfWork.Repository<Movie>().GetMovies(true).Select(m => ModelFactoryInstance.Create(m));
+            int totalCount = 0;
+            var result = _unitOfWork.Repository<Movie>().GetMovies(out totalCount, includeArtists: true).Select(m => ModelFactoryInstance.Create(m));
+            return result;
+        }
+
+        public IEnumerable<MovieModel> GetMovies(int page)
+        {
+            int totalCount = 0;
+            return _unitOfWork.Repository<Movie>().GetMovies(out totalCount, page: page, pageSize:10, includeArtists: true)
+                .Select(m => ModelFactoryInstance.Create(m));
         }
 
         public MovieModel GetMovie(int id)

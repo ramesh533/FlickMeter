@@ -25,25 +25,14 @@ namespace FlickMeter.Service.Models
 
             if (movie.Artists != null)
             {
-                if (movie.Artists.Any(ma => ma.Role == ArtistRole.Hero))
-                {
-                    sbArtists.AppendFormat("{0},", movie.Artists.Where(ma => ma.Role == ArtistRole.Hero).FirstOrDefault().Artist.Name);
-                }
+                movieModel.Artists = sbArtists.Append(movie.GetArtistName(ArtistRole.Hero)).Append(", ")
+                    .Append(movie.GetArtistName(ArtistRole.Heroin)).Append(", ")
+                    .Append(movie.GetArtistName(ArtistRole.CharacterArtist))
+                    .ToString();
 
-                if (movie.Artists.Any(ma => ma.Role == ArtistRole.Heroin))
-                {
-                    sbArtists.AppendFormat("{0},", movie.Artists.Where(ma => ma.Role == ArtistRole.Heroin).FirstOrDefault().Artist.Name);
-                }
-
-                if (movie.Artists.Any(ma => ma.Role != ArtistRole.Hero && ma.Role != ArtistRole.Heroin))
-                {
-                    movie.Artists.Where(ma => ma.Role != ArtistRole.Hero && ma.Role != ArtistRole.Heroin).ToList().ForEach(ma =>
-                    {
-                        sbArtists.AppendFormat("{0},", ma.Artist.Name);
-                    });
-                }
-
-                movieModel.Artists = sbArtists.ToString().TrimEnd(',');
+                movieModel.Director = movie.GetArtistName(ArtistRole.Director);
+                movieModel.MusicDirector = movie.GetArtistName(ArtistRole.MusicDirector);
+                movieModel.Producer = movie.GetArtistName(ArtistRole.Producer);
             }
 
             if (movie.Reviews != null)

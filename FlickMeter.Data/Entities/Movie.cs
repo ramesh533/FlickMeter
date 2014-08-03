@@ -21,5 +21,15 @@ namespace FlickMeter.Data.Entities
         public virtual ICollection<MovieReview> Reviews { get; set; }
 
         public ObjectState State { get; set; }
+
+        public string GetArtistName(ArtistRole role)
+        {
+            string artist = string.Empty;
+            if (this.Artists !=null && this.Artists.Any(ma => ma.Role == role))
+            {
+                artist = string.Join(",", this.Artists.Where(ma => ma.Role == role).Select(ma => ma.Artist.Name));
+            }
+            return artist;
+        }
     }
 }

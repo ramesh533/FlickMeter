@@ -10,7 +10,8 @@ namespace FlickMeter.Data
 {
     public static class FlickMeterRepository
     {
-        public static IEnumerable<Movie> GetMovies(this IRepository<Movie> movieRepository, bool includeArtists = false, bool includeReviews = false)
+        public static IEnumerable<Movie> GetMovies(this IRepository<Movie> movieRepository, out int totalCount,
+                                                   int page = 1, int pageSize = 10, bool includeArtists = false, bool includeReviews = false)
         {
             var movieRepoQuery = movieRepository.Query().OrderBy(mq => mq.OrderByDescending(m => m.ReleaseDate));
 
@@ -24,13 +25,13 @@ namespace FlickMeter.Data
                 movieRepoQuery = movieRepoQuery.Include(m => m.Reviews).Include(m => m.Reviews.Select(mr => mr.Reviewer));
             }
 
-            return movieRepoQuery.Get();
+            return movieRepoQuery.GetPage(page, pageSize, out totalCount);
         }
 
         public static Movie GetMovieById(this IRepository<Movie> movieRepository, int id, bool includeArtists = false, bool includeReviews = false)
         {
             var movieRepoQuery = movieRepository.Query().Filter(m => m.Id == id);
-            
+
             if (includeArtists)
             {
                 movieRepoQuery = movieRepoQuery.Include(m => m.Artists).Include(m => m.Artists.Select(ma => ma.Artist));
