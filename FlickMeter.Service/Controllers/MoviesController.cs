@@ -20,18 +20,19 @@ namespace FlickMeter.Service.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<MovieModel> Get()
-        {
-            int totalCount = 0;
-            var result = _unitOfWork.Repository<Movie>().GetMovies(out totalCount, includeArtists: true).Select(m => ModelFactoryInstance.Create(m));
-            return result;
-        }
+        //public IEnumerable<MovieModel> Get()
+        //{
+        //    int totalCount = 0;
+        //    var result = _unitOfWork.Repository<Movie>().GetMovies(out totalCount, includeArtists: true).Select(m => ModelFactoryInstance.Create(m));
+        //    return result;
+        //}
 
-        public IEnumerable<MovieModel> GetMovies(int page)
+        public object GetMovies(int? page = null, int? pageSize = null)
         {
             int totalCount = 0;
-            return _unitOfWork.Repository<Movie>().GetMovies(out totalCount, page: page, pageSize:10, includeArtists: true)
+            var movies = _unitOfWork.Repository<Movie>().GetMovies(out totalCount, page: page ?? 1, pageSize: pageSize ?? 10, includeArtists: true)
                 .Select(m => ModelFactoryInstance.Create(m));
+            return new { count = totalCount, movies = movies };
         }
 
         public MovieModel GetMovie(int id)

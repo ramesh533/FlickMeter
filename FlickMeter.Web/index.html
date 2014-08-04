@@ -25,25 +25,21 @@
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#" target="_blank">Login</a></li>
-                    <li class="dropdown">
+                    <li><a href="#">Login</a></li>
+                    <!--<li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="theme">Theme <span class="caret"></span></a>
                         <ul class="dropdown-menu" aria-labelledby="theme">
                             <li><a href="#">Amelia</a></li>
                             <li><a href="#">BootsWatch</a></li>
                             <li><a href="#">Flatly</a></li>
                         </ul>
-                    </li>
+                    </li>-->
                 </ul>
 
             </div>
         </div>
     </div>
     <div class="container">
-        <ul class="breadcrumb">
-            <li class="active"><a href="#">Home</a></li>
-            <li class="active">Latest Movies</li>
-        </ul>
         <div data-ng-view=""></div>
     </div>
     <hr />
@@ -62,5 +58,7 @@
 <script type="text/javascript" src="scripts/toaster.js"></script>
 <script type="text/javascript" src="scripts/loading-bar.min.js"></script>
 <script type="text/javascript" src="app/app.js"></script>
-<script type="text/javascript" src="app/controllers/flickMeterMovieController.js"></script>
+<script type="text/javascript" src="app/controllers/movieListController.js"></script>
 <script type="text/javascript" src="app/services/flickMeterMovieService.js"></script>
+<script type="text/javascript" src="app/services/flickMeterMovieDetailService.js"></script>
+<script type="text/javascript" src="app/controllers/movieDetailController.js"></script>

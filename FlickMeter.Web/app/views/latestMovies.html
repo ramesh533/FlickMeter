@@ -1,13 +1,20 @@
-﻿<h2>Latest Movies</h2>
-<div class="list-group">
-    <div class="list-group-item" ng-repeat="movie in movies">
+﻿<ul class="breadcrumb">
+    <li class="active"><a href="#">Home</a></li>
+    <li class="active">Latest Movies</li>
+</ul>
+<h2>Latest Movies</h2>
+<div class="well well-sm" data-ng-show="totalRecordsCount == 0">
+    <h5>No Movies found!!</h5>
+</div>
+<div class="list-group" data-ng-show="totalRecordsCount > 0">
+    <div class="list-group-item col-md-6" ng-repeat="movie in movies">
         <table>
             <tr>
                 <td>
-                    <img src="Content/images/{{movie.imagePath}}" />
+                    <img ng-src="Content/images/{{movie.imagePath}}" />
                 </td>
-                <td style="padding-left:15px; vertical-align:top">
-                    <h4 class="list-group-item-heading"><a href="#">{{movie.title}}</a></h4>
+                <td style="padding-left: 15px; vertical-align: top">
+                    <h4 class="list-group-item-heading"><a href="#/movie/{{movie.id}}">{{movie.title}}</a></h4>
                     <h5>3/5</h5>
                     <h5>Cast: {{movie.artists}}</h5>
                     <h5>Director: {{movie.director}}</h5>
@@ -19,13 +26,18 @@
         </table>
     </div>
 </div>
-<ul class="pagination pull-right">
-    <li class="disabled"><a href="#">«</a></li>
-    <li class="active"><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li><a href="#">»</a></li>
-</ul>
+
+<div class="row">
+    <div class="col-md-offset-2 col-md-8 col-md-offset-2 text-center">
+        <div data-ng-show="totalRecordsCount > 0">
+            <div>
+                <div data-pagination="" data-previous-text="<" data-next-text=">" data-first-text="<<" data-last-text=">>"
+                    data-on-select-page="pageChanged(page)" data-total-items="totalRecordsCount" data-page="currentPage"
+                    data-boundary-links="true" class="pagination pagination-sm" data-max-size="5" data-rotate="false" data-items-per-page="10">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 

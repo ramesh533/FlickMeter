@@ -14,8 +14,8 @@ namespace FlickMeter.Service
         {
             config.Routes.MapHttpRoute(
                 name: "MovieListApi",
-                routeTemplate: "api/movies/{page}",
-                defaults: new { controller = "movies", page = RouteParameter.Optional }
+                routeTemplate: "api/movies/{page}/{pageSize}",
+                defaults: new { controller = "movies", page = RouteParameter.Optional, pageSize = RouteParameter.Optional }
             );
 
             config.Routes.MapHttpRoute(

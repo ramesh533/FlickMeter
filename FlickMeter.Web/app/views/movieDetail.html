@@ -1,0 +1,35 @@
+﻿<ul class="breadcrumb">
+    <li class="active"><a href="#">Home</a></li>
+    <li class="active"><a href="#/latest">Latest Movies</a></li>
+    <li class="active">{{movie.title}}</li>
+</ul>
+<h2>{{movie.title}}</h2>
+<table style="width:100%">
+    <tr>
+        <td style="width:150px">
+            <img ng-src="Content/images/{{movie.imagePath}}" />
+        </td>
+        <td style="padding-left: 15px; vertical-align: top">
+            <h4><a href="#/movie/{{movie.id}}">{{movie.title}}</a></h4>
+            <h5>3/5</h5>
+            <h5>Cast: {{movie.artists}}</h5>
+            <h5>Director: {{movie.director}}</h5>
+            <h5>Music Director: {{movie.musicDirector}}</h5>
+            <h5>Producer: {{movie.producer}}</h5>
+            <h5>Released on {{movie.releaseDate}}</h5>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div class="list-group">
+                <h3>Reviews</h3>
+                <div class="list-group-item row" ng-repeat="review in movie.reviews">
+                    <h4>{{review.reviewer.name}}</h4>
+                    <h5>{{review.rating}}</h5>
+                    <h5>{{review.tagLine}}</h5>
+                    <h5>review: {{review.review}}</h5>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
