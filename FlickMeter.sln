@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlickMeter.Data", "FlickMet
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlickMeter.Web", "FlickMeter.Web\FlickMeter.Web.csproj", "{BD9F3870-12B5-4FDC-9544-2222822FE8E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlickMeter.Service", "FlickMeter.Service\FlickMeter.Service.csproj", "{1FB48819-03CD-4129-82A0-25DE8A0D6049}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlickMeter.Test", "FlickMeter.Test\FlickMeter.Test.csproj", "{5B4DFBB9-C68B-4CB1-B522-7839F6A96800}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlickMeter.Infrastructure", "FlickMeter.Infrastructure\FlickMeter.Infrastructure.csproj", "{91F2D02E-7DE8-41F8-87D7-E5C065185E16}"
@@ -25,10 +23,6 @@ Global
 		{BD9F3870-12B5-4FDC-9544-2222822FE8E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD9F3870-12B5-4FDC-9544-2222822FE8E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD9F3870-12B5-4FDC-9544-2222822FE8E5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1FB48819-03CD-4129-82A0-25DE8A0D6049}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1FB48819-03CD-4129-82A0-25DE8A0D6049}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1FB48819-03CD-4129-82A0-25DE8A0D6049}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1FB48819-03CD-4129-82A0-25DE8A0D6049}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5B4DFBB9-C68B-4CB1-B522-7839F6A96800}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5B4DFBB9-C68B-4CB1-B522-7839F6A96800}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B4DFBB9-C68B-4CB1-B522-7839F6A96800}.Release|Any CPU.ActiveCfg = Release|Any CPU

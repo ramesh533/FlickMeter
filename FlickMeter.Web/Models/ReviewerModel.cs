@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace FlickMeter.Service.Models
+namespace FlickMeter.Web.Models
 {
     public class ReviewerModel
     {

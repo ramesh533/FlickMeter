@@ -1,7 +1,7 @@
 ﻿using FlickMeter.Data;
 using FlickMeter.Data.Entities;
 using FlickMeter.Infrastructure;
-using FlickMeter.Service.Models;
+using FlickMeter.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace FlickMeter.Service.Controllers
+namespace FlickMeter.Web.Controllers
 {
     public class MoviesController : BaseApiController
     {

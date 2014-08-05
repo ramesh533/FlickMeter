@@ -12,6 +12,9 @@ app.config(function ($routeProvider) {
     $routeProvider.when("/about", {
         templateUrl: "app/views/about.html"
     });
+    $routeProvider.when("/upcoming", {
+        templateUrl: "app/views/upcoming.html"
+    });
     $routeProvider.otherwise({ redirectTo: "/latest" });
 
 });
