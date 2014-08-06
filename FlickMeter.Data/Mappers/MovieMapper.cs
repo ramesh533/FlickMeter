@@ -29,6 +29,8 @@ namespace FlickMeter.Data.Mappers
 
             this.Property(m => m.ReleaseDate).IsRequired();
             this.Property(m => m.ReleaseDate).HasColumnType("smalldatetime");
+            
+            this.Property(m => m.Language).IsRequired();
 
             this.Ignore(m => m.State);
         }

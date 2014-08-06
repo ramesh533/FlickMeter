@@ -15,7 +15,7 @@ namespace FlickMeter.Data
     {
         public FlickMeterContext() : base("flickMeterConnection")
         {
-            Configuration.ProxyCreationEnabled = true;
+            Configuration.ProxyCreationEnabled = false;
             Configuration.LazyLoadingEnabled = false;
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<FlickMeterContext, FlickMeterContextMigrationConfiguration>());
         }
@@ -25,6 +25,8 @@ namespace FlickMeter.Data
         public DbSet<MovieArtist> MovieArtists { get; set; }
         public DbSet<MovieReview> MovieReviews { get; set; }
         public DbSet<Reviewer> Reviewers { get; set; }
+
+        public bool IgnoreObjectState = false;
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -38,7 +40,10 @@ namespace FlickMeter.Data
 
         public override int SaveChanges()
         {
-            this.ApplyStateChanges();
+            if (!IgnoreObjectState)
+            {
+                this.ApplyStateChanges();
+            }
             return base.SaveChanges();
         }
 

@@ -18,7 +18,7 @@ namespace FlickMeter.Data
         protected override void Seed(FlickMeterContext context)
         {
             new FlickMeterDataSeeder(context).Seed();
-            //base.Seed(context);
+            base.Seed(context);
         }
     }
 }

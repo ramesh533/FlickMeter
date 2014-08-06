@@ -1,5 +1,6 @@
 ﻿using FlickMeter.Data;
 using FlickMeter.Data.Entities;
+using FlickMeter.Data.Enums;
 using FlickMeter.Infrastructure;
 using FlickMeter.Web.Models;
 using System;
@@ -30,7 +31,7 @@ namespace FlickMeter.Web.Controllers
         public object GetMovies(int? page = null, int? pageSize = null)
         {
             int totalCount = 0;
-            var movies = _unitOfWork.Repository<Movie>().GetMovies(out totalCount, page: page ?? 1, pageSize: pageSize ?? 10, includeArtists: true)
+            var movies = _unitOfWork.Repository<Movie>().GetMovies(Language.Telugu, out totalCount, page: page ?? 1, pageSize: pageSize ?? 10, includeArtists: true)
                 .Select(m => ModelFactoryInstance.Create(m));
             return new { count = totalCount, movies = movies };
         }

@@ -1,4 +1,5 @@
 ﻿using FlickMeter.Data.Entities;
+using FlickMeter.Data.Enums;
 using FlickMeter.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -10,19 +11,22 @@ namespace FlickMeter.Data
 {
     public static class FlickMeterRepository
     {
-        public static IEnumerable<Movie> GetMovies(this IRepository<Movie> movieRepository, out int totalCount,
+        public static IEnumerable<Movie> GetMovies(this IRepository<Movie> movieRepository, Language language, out int totalCount,
                                                    int page = 1, int pageSize = 10, bool includeArtists = false, bool includeReviews = false)
         {
-            var movieRepoQuery = movieRepository.Query().OrderBy(mq => mq.OrderByDescending(m => m.ReleaseDate));
+            var movieRepoQuery = movieRepository.Query().Filter(m => m.Language == language)
+                                                        .OrderBy(mq => mq.OrderByDescending(m => m.ReleaseDate));
 
             if (includeArtists)
             {
-                movieRepoQuery = movieRepoQuery.Include(m => m.Artists).Include(m => m.Artists.Select(ma => ma.Artist));
+                movieRepoQuery = movieRepoQuery.Include(m => m.Artists)
+                                               .Include(m => m.Artists.Select(ma => ma.Artist));
             }
 
             if (includeReviews)
             {
-                movieRepoQuery = movieRepoQuery.Include(m => m.Reviews).Include(m => m.Reviews.Select(mr => mr.Reviewer));
+                movieRepoQuery = movieRepoQuery.Include(m => m.Reviews)
+                                               .Include(m => m.Reviews.Select(mr => mr.Reviewer));
             }
 
             return movieRepoQuery.GetPage(page, pageSize, out totalCount);
@@ -34,12 +38,14 @@ namespace FlickMeter.Data
 
             if (includeArtists)
             {
-                movieRepoQuery = movieRepoQuery.Include(m => m.Artists).Include(m => m.Artists.Select(ma => ma.Artist));
+                movieRepoQuery = movieRepoQuery.Include(m => m.Artists)
+                                               .Include(m => m.Artists.Select(ma => ma.Artist));
             }
 
             if (includeReviews)
             {
-                movieRepoQuery = movieRepoQuery.Include(m => m.Reviews).Include(m => m.Reviews.Select(mr => mr.Reviewer));
+                movieRepoQuery = movieRepoQuery.Include(m => m.Reviews)
+                                               .Include(m => m.Reviews.Select(mr => mr.Reviewer));
             }
 
             return movieRepoQuery.Get().SingleOrDefault();

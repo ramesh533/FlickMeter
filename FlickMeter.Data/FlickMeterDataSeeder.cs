@@ -16,73 +16,74 @@ namespace FlickMeter.Data
         public FlickMeterDataSeeder(FlickMeterContext context)
         {
             _context = context;
+            _context.IgnoreObjectState = true;
         }
 
         public void Seed()
         {
-            if (_context.Movies.Count() > 0)
+            if (_context.Reviewers.Count() == 0)
             {
-                return;
+                _context.Reviewers.Add(new Reviewer() { Name = "Reviewer1", SiteUrl = "http://www.google.com", State = ObjectState.Added });
+                _context.Reviewers.Add(new Reviewer() { Name = "Reviewer2", SiteUrl = "http://www.google.com", State = ObjectState.Added });
+                _context.SaveChanges();
             }
 
-            _context.Reviewers.Add(new Reviewer() { Name = "Reviewer1", SiteUrl = "http://www.google.com", State = ObjectState.Added });
-            _context.Reviewers.Add(new Reviewer() { Name = "Reviewer2", SiteUrl = "http://www.google.com", State = ObjectState.Added });
-            _context.SaveChanges();
-
-            _context.SaveChanges();
-
-            for (int i = 1; i <= 100; i++)
+            if (_context.Movies.Count() == 0)
             {
-                Random random = new Random();
-                var genreArray = Enum.GetValues(typeof(Genre));
-                var movieArtists = new List<MovieArtist>();
-                var movieReviews = new List<MovieReview>();
-
-                Movie movie = new Movie()
+                for (int i = 1; i <= 100; i++)
                 {
-                    Title = "Movie" + i,
-                    Genre = (Genre)genreArray.GetValue(random.Next(1, genreArray.Length)),
-                    ImagePath = "default.jpg",
-                    ReleaseDate = DateTime.Now.AddMonths(i * -1),
-                    State = ObjectState.Added
-                };
+                    Random random = new Random();
+                    var genreArray = Enum.GetValues(typeof(Genre));
+                    var movieArtists = new List<MovieArtist>();
+                    var movieReviews = new List<MovieReview>();
 
-                foreach (ArtistRole role in Enum.GetValues(typeof(ArtistRole)))
-                {
-                    movieArtists.Add(new MovieArtist()
+                    Movie movie = new Movie()
                     {
-                        Movie = movie,
-                        Artist = new Artist()
+                        Title = "Movie" + i,
+                        Genre = (Genre)genreArray.GetValue(random.Next(1, genreArray.Length)),
+                        ImagePath = "default.jpg",
+                        ReleaseDate = DateTime.Now.AddMonths(i * -1),
+                        Language = Language.Telugu,
+                        State = ObjectState.Added
+                    };
+
+                    foreach (ArtistRole role in Enum.GetValues(typeof(ArtistRole)))
+                    {
+                        movieArtists.Add(new MovieArtist()
                         {
-                            Name = role.ToString() + i,
-                            PrimaryRole = role,
+                            Movie = movie,
+                            Artist = new Artist()
+                            {
+                                Name = role.ToString() + i,
+                                PrimaryRole = role,
+                                State = ObjectState.Added
+                            },
+                            Role = role,
                             State = ObjectState.Added
-                        },
-                        Role = role,
-                        State = ObjectState.Added
-                    });
-                }
+                        });
+                    }
 
-                foreach (var item in _context.Reviewers)
-                {
-                    movieReviews.Add(new MovieReview()
+                    foreach (var item in _context.Reviewers)
                     {
-                        Movie = movie,
-                        TagLine = "tag line goes here",
-                        Rating = random.Next(1, 5),
-                        Reviewer = item,
-                        Review = "review goes here",
-                        ReviewedDate = DateTime.Now.AddMonths(i * -1),
-                        State = ObjectState.Added
-                    });
+                        movieReviews.Add(new MovieReview()
+                        {
+                            Movie = movie,
+                            TagLine = "tag line goes here",
+                            Rating = random.Next(1, 5),
+                            Reviewer = item,
+                            Review = "review goes here",
+                            ReviewedDate = DateTime.Now.AddMonths(i * -1),
+                            State = ObjectState.Added
+                        });
+                    }
+
+                    _context.Movies.Add(movie);
+                    movieArtists.ForEach(ma => _context.MovieArtists.Add(ma));
+                    movieReviews.ForEach(mr => _context.MovieReviews.Add(mr));
                 }
 
-                _context.Movies.Add(movie);
-                movieArtists.ForEach(ma => _context.MovieArtists.Add(ma));
-                movieReviews.ForEach(mr => _context.MovieReviews.Add(mr));
-            }
-
-            _context.SaveChanges();
+                _context.SaveChanges();
+            }            
         }
     }
 }

@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\AppUser.cs" />
     <Compile Include="Entities\Artist.cs" />
     <Compile Include="Entities\Movie.cs" />
     <Compile Include="Entities\MovieArtist.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="Entities\Reviewer.cs" />
     <Compile Include="Enums\AritstRole.cs" />
     <Compile Include="Enums\Genre.cs" />
+    <Compile Include="Enums\Language.cs" />
     <Compile Include="FlickMeterContext.cs" />
     <Compile Include="FlickMeterContextMigrationConfiguration.cs" />
     <Compile Include="FlickMeterDataSeeder.cs" />
