@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Security;
+using WebMatrix.WebData;
 
 namespace FlickMeter.Data
 {
@@ -21,6 +23,24 @@ namespace FlickMeter.Data
 
         public void Seed()
         {
+            WebSecurity.InitializeDatabaseConnection(
+                "flickMeterConnection",
+                "UserProfile",
+                "UserId",
+                "UserName", autoCreateTables: true);
+
+            if (!Roles.RoleExists("Administrator"))
+                Roles.CreateRole("Administrator");
+
+            if (!WebSecurity.UserExists("lelong37"))
+                WebSecurity.CreateUserAndAccount(
+                    "lelong37",
+                    "password",
+                    new { Mobile = "+19725000000" });
+
+            if (!Roles.GetRolesForUser("lelong37").Contains("Administrator"))
+                Roles.AddUsersToRoles(new[] { "lelong37" }, new[] { "Administrator" });
+
             if (_context.Reviewers.Count() == 0)
             {
                 _context.Reviewers.Add(new Reviewer() { Name = "Reviewer1", SiteUrl = "http://www.google.com", State = ObjectState.Added });

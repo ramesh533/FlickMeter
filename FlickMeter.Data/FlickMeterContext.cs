@@ -25,6 +25,7 @@ namespace FlickMeter.Data
         public DbSet<MovieArtist> MovieArtists { get; set; }
         public DbSet<MovieReview> MovieReviews { get; set; }
         public DbSet<Reviewer> Reviewers { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; }
 
         public bool IgnoreObjectState = false;
 
@@ -35,6 +36,7 @@ namespace FlickMeter.Data
             modelBuilder.Configurations.Add(new MovieArtistMapper());
             modelBuilder.Configurations.Add(new MovieReviewMapper());
             modelBuilder.Configurations.Add(new ReviewerMapper());
+            modelBuilder.Configurations.Add(new UserProfileMapper());
             base.OnModelCreating(modelBuilder);
         }
 
