@@ -1,0 +1,36 @@
+﻿@using FlickMeter.Web.Helpers.HtmlHelpers
+@model IEnumerable<FlickMeter.Web.Models.MovieModel>
+@{
+    ViewBag.Title = "Movies";
+}
+
+<hgroup class="title">
+    <h2>@ViewBag.Title</h2>
+</hgroup>
+
+<table class="table table-striped table-hover ">
+    <thead>
+        <tr class="active">
+            <th>
+                Title
+            </th>
+            <th>
+                Release Date
+            </th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    @foreach (var movie in Model)
+    {
+        <tr>
+            <td>@Html.ActionLink(@movie.Title, "Edit", "Movie", new { id = @movie.Id}, null)</td>
+            <td>@movie.ReleaseDate</td>
+            <td>@Html.ActionLink("Edit", "Edit", "Movie", new { id = @movie.Id}, null)</td>
+            <td>@Html.ActionLink("Delete", "Delete", "Movie", new { id = @movie.Id}, null)</td>
+        </tr>
+    }
+</table>
+<div class="pull-right">
+@Html.BootstrapPager((int)ViewBag.CurrentPage, index => Url.Action("Index", "Movie", new { pageIndex = index }), (int)ViewBag.TotalCount, pageSize: (int)ViewBag.PageSize)
+    </div>

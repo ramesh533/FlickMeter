@@ -13,7 +13,9 @@ namespace FlickMeter.Web.Models
         public string ImagePath { get; set; }
         public Genre Genre { get; set; }
         public DateTime ReleaseDate { get; set; }
-        public string Artists { get; set; }
+        public string Hero { get; set; }
+        public string Heroin { get; set; }
+        public string CharacterArtists { get; set; }
         public string Director { get; set; }
         public string MusicDirector { get; set; }
         public string Producer { get; set; }

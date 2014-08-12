@@ -23,23 +23,19 @@ namespace FlickMeter.Data
 
         public void Seed()
         {
-            WebSecurity.InitializeDatabaseConnection(
-                "flickMeterConnection",
-                "UserProfile",
-                "UserId",
-                "UserName", autoCreateTables: true);
+            if (!WebSecurity.Initialized)
+            {
+                WebSecurity.InitializeDatabaseConnection("flickMeterConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+            }
 
             if (!Roles.RoleExists("Administrator"))
                 Roles.CreateRole("Administrator");
 
-            if (!WebSecurity.UserExists("lelong37"))
-                WebSecurity.CreateUserAndAccount(
-                    "lelong37",
-                    "password",
-                    new { Mobile = "+19725000000" });
+            if (!WebSecurity.UserExists("ramesh"))
+                WebSecurity.CreateUserAndAccount("ramesh", "123456Aa", new { Mobile = "+19725000000" });
 
-            if (!Roles.GetRolesForUser("lelong37").Contains("Administrator"))
-                Roles.AddUsersToRoles(new[] { "lelong37" }, new[] { "Administrator" });
+            if (!Roles.GetRolesForUser("ramesh").Contains("Administrator"))
+                Roles.AddUsersToRoles(new[] { "ramesh" }, new[] { "Administrator" });
 
             if (_context.Reviewers.Count() == 0)
             {

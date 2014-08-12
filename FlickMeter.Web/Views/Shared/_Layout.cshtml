@@ -4,12 +4,40 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/amelia-bootstrap-theme.min.css" rel="stylesheet" />
+    <!--<link href="Content/css/bootswatch.bootstrap.min.css" rel="stylesheet" />-->
+    <link href="~/Content/css/site.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link href="favicon.ico" rel="shortcut icon" />
 </head>
 <body>
-    @RenderBody()
+    <div class="navbar navbar-default">
+        <div class="container" data-ng-controller="navigationController">
+            <div class="navbar-header">
+                <a id="logo" href="#" class="navbar-brand">FlickMeter</a>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar-main">
+                <ul class="nav navbar-nav">
+                    <li><a href="~/Admin/Movie">Movies</a></li>
+                    <li><a href="~/Admin/Review">Reviews</a></li>
+                    <li><a href="~/Admin/Admin">Admins</a></li>
+                </ul>
 
+                <ul class="nav navbar-nav navbar-right">
+                        @Html.Partial("_LoginPartial")
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        @RenderBody()
+    </div>
+    <hr />
+    <footer class="container">
+        FlickMeter: <a href="http://www.flickmeter.com" target="_blank">flickmeter</a>
+    </footer>
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
 </body>

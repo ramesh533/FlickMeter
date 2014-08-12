@@ -25,10 +25,9 @@ namespace FlickMeter.Web.Models
 
             if (movie.Artists != null)
             {
-                movieModel.Artists = sbArtists.Append(movie.GetArtistName(ArtistRole.Hero)).Append(", ")
-                    .Append(movie.GetArtistName(ArtistRole.Heroin)).Append(", ")
-                    .Append(movie.GetArtistName(ArtistRole.CharacterArtist))
-                    .ToString();
+                movieModel.Hero = movie.GetArtistName(ArtistRole.Hero);
+                movieModel.Heroin = movie.GetArtistName(ArtistRole.Heroin);
+                movieModel.CharacterArtists = movie.GetArtistName(ArtistRole.CharacterArtist);
 
                 movieModel.Director = movie.GetArtistName(ArtistRole.Director);
                 movieModel.MusicDirector = movie.GetArtistName(ArtistRole.MusicDirector);
