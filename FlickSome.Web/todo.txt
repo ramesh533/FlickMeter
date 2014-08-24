@@ -1,0 +1,7 @@
+﻿Add functionality
+Character artists - add/update scenarios
+Add tags
+delete image on update
+calendar
+validations
+Reviews

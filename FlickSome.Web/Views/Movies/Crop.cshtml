@@ -1,0 +1,39 @@
+﻿<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Crop</title>
+    <script type="text/javascript" src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.Jcrop.min.js"></script>
+    <link href="~/Content/css/jquery.Jcrop.css" rel="stylesheet" />
+</head>
+<body>
+    <img id="crop" src="~/Content/images/@Model.ImagePath" />
+    @using(Html.BeginForm("Crop", "Movies", FormMethod.Post))
+    {
+        <input type="hidden" id="top" name="Top" value="@Model.Top" />
+        <input type="hidden" id="left" name="Left" value="@Model.Left" />
+        <input type="hidden" id="bottom" name="Bottom" value="@Model.Bottom" />
+        <input type="hidden" id="right" name="Right" value="@Model.Right" />
+        <input type="hidden" id="image" name="ImagePath" value="@Model.ImagePath" />
+        <input type="submit" name="action" value="Crop" />
+    }
+    @Html.ActionLink("Skip", "Index", "Movies")
+
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $('#crop').Jcrop({
+                            onSelect: storeCoords,
+                            setSelect: [@Model.Top,@Model.Left,@Model.Right,@Model.Bottom],
+                            aspectRatio: 140 / 200
+            });
+        });
+
+        function storeCoords(c) {
+            $('#top').val(c.y);
+            $('#left').val(c.x);
+            $('#bottom').val(c.y2);
+            $('#right').val(c.x2);
+        };
+    </script>
+</body>
+</html>

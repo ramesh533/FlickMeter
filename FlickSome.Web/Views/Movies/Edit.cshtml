@@ -1,0 +1,133 @@
+﻿@using FlickSome.Web.Helpers.Extensions
+@model FlickSome.Web.Models.MovieModel
+@{
+    ViewBag.Title = @Model.Title;
+}
+
+<hgroup class="title">
+    <h2>@ViewBag.Title</h2>
+</hgroup>
+<section id="editForm">
+    @using (Html.BeginForm("Edit", "Movies", new { id = Model.Id }, FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="well bs-component">
+            <fieldset>
+                <div class="form-group required">
+                    <label for="Title" class="col-lg-2 control-label">Title</label>
+                    <div class="col-lg-6">
+                        @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Title)
+                </div>
+                <div class="form-group required">
+                    <label for="Genre" class="col-lg-2 control-label">Genre</label>
+                    <div class="col-lg-6">
+                        @Html.DropDownListFor(m => m.Genre, Model.Genre.ToSelectList(), new { @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Genre)
+                </div>
+                <div class="form-group required">
+                    <label for="ReleaseDate" class="col-lg-2 control-label">Release Date</label>
+                    <div class="col-lg-6">
+                        @Html.TextBoxFor(m => m.ReleaseDate, "{0:MM/dd/yyyy}", new { @class = "form-control" }) <span>(mm/dd/yyyy)</span>
+                    </div>
+                    @Html.ValidationMessageFor(m => m.ReleaseDate)
+                </div>
+                <div class="form-group required">
+                    <label for="Hero" class="col-lg-2 control-label">Hero</label>
+                    <div class="col-lg-6">
+                        @Html.TextBoxFor(m => m.Hero, new { @class = "form-control", data_provide = "typeahead" })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Hero)
+                </div>
+                <div class="form-group required">
+                    <label for="Heroin" class="col-lg-2 control-label">Heroin</label>
+                    <div class="col-lg-6">
+                        @Html.TextBoxFor(m => m.Heroin, new { @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Heroin)
+                </div>
+                <div class="form-group required">
+                    <label for="Director" class="col-lg-2 control-label">Director</label>
+                    <div class="col-lg-6">
+                        @Html.TextBoxFor(m => m.Director, new { @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Director)
+                </div>
+                <div class="form-group required">
+                    <label for="Producer" class="col-lg-2 control-label">Producer</label>
+                    <div class="col-lg-6">
+                        @Html.TextBoxFor(m => m.Producer, new { @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Producer)
+                </div>
+                <div class="form-group required">
+                    <label for="MusicDirector" class="col-lg-2 control-label">MusicDirector</label>
+                    <div class="col-lg-6">
+                        @Html.TextBoxFor(m => m.MusicDirector, new { @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.MusicDirector)
+                </div>
+                <div class="form-group">
+                    <label for="Tags" class="col-lg-2 control-label">Tags</label>
+                    <div class="col-lg-6">
+                        @Html.TextBoxFor(m => m.Tags, new { @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Tags)
+                </div>
+                <div class="form-group required">
+                    <label for="Producer" class="col-lg-2 control-label">Image</label>
+                    <div class="col-lg-6">
+                        @if (!String.IsNullOrEmpty(Model.ImagePath))
+                        {
+                            <img alt="@Model.Title" src="~/Content/images/@Model.ImagePath" />
+                        }
+                        <input type="file" name="Image" id="Image" />
+                    </div>
+                    @Html.HiddenFor(m => m.ImagePath)
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-6 col-lg-offset-2">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        @Html.ActionLink("Cancel", "Index", "Movies")
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    }
+</section>
+@Html.ActionLink("Back", "Index", "Movies")
+@section Scripts
+{
+    <script src="~/Scripts/bootstrap-datepicker.js"></script>
+    <script src="~/Scripts/jquery-ui-1.8.20.min.js"></script>
+    @*<script src="~/Scripts/typeahead.bundle.js"></script>*@
+    <script>
+        $(function () {
+            $("#ReleaseDate").datepicker();
+
+            $('#Hero').autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        type: "GET",
+                        url: "http://localhost/FlickSome/Admin/Movies/Heroes?query=" + request.term,
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (data) {
+
+                            response(data);
+                        }
+                    });
+                }
+            });
+        });        
+  </script>
+}
+@section Styles
+{
+    <link href="~/Content/themes/base/jquery.ui.core.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/jquery.ui.autocomplete.css" rel="stylesheet" />
+    <link href="~/Content/css/datepicker.css" rel="stylesheet" />
+}

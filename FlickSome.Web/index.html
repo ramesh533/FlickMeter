@@ -1,0 +1,65 @@
+﻿<html data-ng-app="FlickSomeApp">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <title>FlickSome</title>
+    <link href="Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/css/amelia-bootstrap-theme.min.css" rel="stylesheet" />
+    <!--<link href="Content/css/bootswatch.bootstrap.min.css" rel="stylesheet" />-->
+    <link href="Content/css/toaster.css" rel="stylesheet" />
+    <link href="Content/css/loading-bar.min.css" rel="stylesheet" />
+    <link href="Content/css/site.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link href="favicon.ico" rel="shortcut icon" />
+</head>
+<body>
+    <div class="navbar navbar-default">
+        <div class="container" data-ng-controller="navigationController">
+            <div class="navbar-header">
+                <a id="logo" href="#" class="navbar-brand">FlickSome</a>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar-main">
+                <ul class="nav navbar-nav">
+                    <li data-ng-class="{'active':isActive('/latest')}"><a href="#/latest">Latest Movies</a></li>
+                    <li data-ng-class="{'active':isActive('/upcoming')}"><a href="#/upcoming">Upcoming Movies</a></li>
+                    <li data-ng-class="{'active':isActive('/about')}"><a href="#/about">About</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Login</a></li>
+                    <!--<li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="theme">Theme <span class="caret"></span></a>
+                        <ul class="dropdown-menu" aria-labelledby="theme">
+                            <li><a href="#">Amelia</a></li>
+                            <li><a href="#">BootsWatch</a></li>
+                            <li><a href="#">Flatly</a></li>
+                        </ul>
+                    </li>-->
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div data-ng-view=""></div>
+    </div>
+    <hr />
+    <footer class="container">
+        FlickSome: <a href="http://www.flicksome.com" target="_blank">flicksome</a>
+    </footer>
+</body>
+</html>
+<!-- 3rd party libraries -->
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular-route.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular-resource.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular-animate.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.9.0/ui-bootstrap.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.9.0/ui-bootstrap-tpls.min.js"></script>
+<script type="text/javascript" src="scripts/toaster.js"></script>
+<script type="text/javascript" src="scripts/loading-bar.min.js"></script>
+<script type="text/javascript" src="app/app.js"></script>
+<script type="text/javascript" src="app/controllers/movieListController.js"></script>
+<script type="text/javascript" src="app/services/flickSomeMovieService.js"></script>
+<script type="text/javascript" src="app/services/flickSomeMovieDetailService.js"></script>
+<script type="text/javascript" src="app/controllers/movieDetailController.js"></script>
+<script src="app/controllers/navigationController.js"></script>
