@@ -23,11 +23,6 @@ namespace FlickSome.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-            //if (!WebSecurity.Initialized)
-            //{
-            //    WebSecurity.InitializeDatabaseConnection("flickSomeConnection", "UserProfile", "UserId", "UserName", autoCreateTables: false);
-            //}
         }
     }
 }

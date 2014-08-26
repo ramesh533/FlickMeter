@@ -1,0 +1,37 @@
+﻿@using FlickSome.Web.Helpers.HtmlHelpers
+@model IEnumerable<FlickSome.Web.Models.ReviewerModel>
+@{
+    ViewBag.Title = "Reviewers";
+}
+
+<hgroup class="title">
+    <h2>@ViewBag.Title</h2>
+</hgroup>
+<div class="pull-right">    
+    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit")'">Add New Reviewer</button>
+</div>
+<br /><br />
+<table class="table table-striped table-hover ">
+    <thead>
+        <tr class="active">
+            <th>Name
+            </th>
+            <th>Website
+            </th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    @foreach (var reviewer in Model)
+    {
+        <tr>
+            <td>@Html.ActionLink(@reviewer.Name, "Edit", "Reviewers", new { id = @reviewer.Id }, null)</td>
+            <td>@reviewer.SiteUrl</td>
+            <td>@Html.ActionLink("Edit", "Edit", "Reviewers", new { id = @reviewer.Id }, null)</td>
+            <td>@Html.ActionLink("Delete", "Delete", "Reviewers", new { id = @reviewer.Id }, null)</td>
+        </tr>
+    }
+</table>
+<div class="pull-right">
+    @Html.BootstrapPager((int)ViewBag.CurrentPage, index => Url.Action("Index", "Reviewers", new { pageIndex = index }), (int)ViewBag.TotalCount, pageSize: (int)ViewBag.PageSize)
+</div>

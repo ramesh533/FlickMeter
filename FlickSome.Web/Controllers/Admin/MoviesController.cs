@@ -63,6 +63,7 @@ namespace FlickSome.Web.Controllers.Admin
             if(movieModel == null)
             {
                 movieModel = new MovieModel();
+                movieModel.ReleaseDate = DateTime.Now;
             }
 
             return View(movieModel);
@@ -167,22 +168,6 @@ namespace FlickSome.Web.Controllers.Admin
             image.Save(_PATH + imageModel.ImagePath);
 
             return RedirectToAction("Index");
-        }
-
-        [HttpGet]
-        public ActionResult Heroes(string query)
-        {
-            return GetArtists(query, ArtistRole.Hero);
-        }
-
-        private ActionResult GetArtists(string query, ArtistRole role)
-        {
-            int totalCount;
-            var result = _unitOfWork.Repository<Artist>().Query()
-                .Filter(a => a.PrimaryRole == role && a.Name.ToLower().StartsWith(query.ToLower()))
-                .OrderBy(a => a.OrderBy(artist => artist.Name))
-                .GetPage(1, 10, out totalCount).Select(a => a.Name);
-            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -1,0 +1,40 @@
+﻿@using FlickSome.Web.Helpers.HtmlHelpers
+@model IEnumerable<FlickSome.Web.Models.ReviewModel>
+@{
+    ViewBag.Title = "Reviews";
+}
+
+<hgroup class="title">
+    <h2>@ViewBag.Title</h2>
+</hgroup>
+<div class="pull-right">    
+    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit")'">Add New Review</button>
+</div>
+<br /><br />
+<table class="table table-striped table-hover ">
+    <thead>
+        <tr class="active">
+            <th>Tag Line
+            </th>
+            <th>Rating
+            </th>
+            <th>Reviewed Date
+            </th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    @foreach (var review in Model)
+    {
+        <tr>
+            <td>@Html.ActionLink(@review.TagLine, "Edit", "Reviews", new { id = @review.Id }, null)</td>
+            <td>@review.Rating</td>
+            <td>@review.ReviewedDate.ToString("dd/MM/yyyy")</td>
+            <td>@Html.ActionLink("Edit", "Edit", "Reviews", new { id = @review.Id }, null)</td>
+            <td>@Html.ActionLink("Delete", "Delete", "Reviews", new { id = @review.Id }, null)</td>
+        </tr>
+    }
+</table>
+<div class="pull-right">
+    @Html.BootstrapPager((int)ViewBag.CurrentPage, index => Url.Action("Index", "Reviews", new { pageIndex = index }), (int)ViewBag.TotalCount, pageSize: (int)ViewBag.PageSize)
+</div>

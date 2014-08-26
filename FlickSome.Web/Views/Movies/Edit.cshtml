@@ -38,7 +38,7 @@
                 <div class="form-group required">
                     <label for="Hero" class="col-lg-2 control-label">Hero</label>
                     <div class="col-lg-6">
-                        @Html.TextBoxFor(m => m.Hero, new { @class = "form-control", data_provide = "typeahead" })
+                        @Html.TextBoxFor(m => m.Hero, new { @class = "form-control" })
                     </div>
                     @Html.ValidationMessageFor(m => m.Hero)
                 </div>
@@ -101,7 +101,7 @@
 @Html.ActionLink("Back", "Index", "Movies")
 @section Scripts
 {
-    <script src="~/Scripts/bootstrap-datepicker.js"></script>
+    @*<script src="~/Scripts/bootstrap-datepicker.js"></script>*@
     <script src="~/Scripts/jquery-ui-1.8.20.min.js"></script>
     @*<script src="~/Scripts/typeahead.bundle.js"></script>*@
     <script>
@@ -112,11 +112,52 @@
                 source: function (request, response) {
                     $.ajax({
                         type: "GET",
-                        url: "http://localhost/FlickSome/Admin/Movies/Heroes?query=" + request.term,
+                        url: "@Model.WebRoot/Admin/Lookup/Heroes?query=" + request.term,
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                         success: function (data) {
+                            response(data);
+                        }
+                    });
+                }
+            });
 
+            $('#Heroin').autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        type: "GET",
+                        url: "@Model.WebRoot/Admin/Lookup/Heroins?query=" + request.term,
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (data) {
+                            response(data);
+                        }
+                    });
+                }
+            });
+
+            $('#Director').autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        type: "GET",
+                        url: "@Model.WebRoot/Admin/Lookup/Directors?query=" + request.term,
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (data) {
+                            response(data);
+                        }
+                    });
+                }
+            });
+
+            $('#Producer').autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        type: "GET",
+                        url: "@Model.WebRoot/Admin/Lookup/Producers?query=" + request.term,
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (data) {
                             response(data);
                         }
                     });
@@ -129,5 +170,6 @@
 {
     <link href="~/Content/themes/base/jquery.ui.core.css" rel="stylesheet" />
     <link href="~/Content/themes/base/jquery.ui.autocomplete.css" rel="stylesheet" />
-    <link href="~/Content/css/datepicker.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/jquery.ui.datepicker.css" rel="stylesheet" />
+    @*<link href="~/Content/css/datepicker.css" rel="stylesheet" />*@
 }

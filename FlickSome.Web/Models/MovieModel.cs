@@ -1,4 +1,5 @@
-﻿using FlickSome.Data.Enums;
+﻿using FlickMeter.Web.Models;
+using FlickSome.Data.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +8,7 @@ using System.Web;
 
 namespace FlickSome.Web.Models
 {
-    public class MovieModel
+    public class MovieModel : BaseModel
     {
         [ScaffoldColumn(false)]
         public int Id { get; set; }
@@ -43,7 +44,7 @@ namespace FlickSome.Web.Models
 
         public string Tags { get; set; }
 
-        public List<ReviewModel> Reviews { get; set; }
+        public List<ReviewModel> Reviews { get; set; }        
 
         public string GetNameByRole(ArtistRole role)
         {

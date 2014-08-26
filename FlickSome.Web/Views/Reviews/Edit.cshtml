@@ -1,0 +1,115 @@
+﻿@using FlickSome.Web.Helpers.Extensions
+@model FlickSome.Web.Models.ReviewModel
+@{
+    ViewBag.Title = "Reviews";
+}
+
+<hgroup class="title">
+    <h2>@ViewBag.Title</h2>
+</hgroup>
+<section id="editForm">
+    @using (Html.BeginForm("Edit", "Reviews", new { id = Model.Id }, FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="well bs-component">
+            <fieldset>
+                <div class="form-group required">
+                    <label for="Movie" class="col-lg-2 control-label">Movie</label>
+                    <div class="col-lg-6">
+                        @Html.TextBoxFor(r => r.Movie, new { @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(r => r.Movie)
+                </div>
+                <div class="form-group required">
+                    <label for="Reviewer" class="col-lg-2 control-label">Reviewer</label>
+                    <div class="col-lg-6">
+                        @Html.TextBoxFor(r => r.Reviewer, new { @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(r => r.Reviewer)
+                </div>
+                <div class="form-group required">
+                    <label for="ReviewedDate" class="col-lg-2 control-label">Reviewed Date</label>
+                    <div class="col-lg-6">
+                        @Html.TextBoxFor(r => r.ReviewedDate, "{0:MM/dd/yyyy}", new { @class = "form-control" }) <span>(mm/dd/yyyy)</span>
+                    </div>
+                    @Html.ValidationMessageFor(r => r.ReviewedDate)
+                </div>
+                <div class="form-group required">
+                    <label for="TagLine" class="col-lg-2 control-label">Tag Line</label>
+                    <div class="col-lg-6">
+                        @Html.TextBoxFor(r => r.TagLine, new { @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(r => r.TagLine)
+                </div>
+                <div class="form-group required">
+                    <label for="Rating" class="col-lg-2 control-label">Rating</label>
+                    <div class="col-lg-6">
+                        @Html.TextBoxFor(r => r.Rating, new { @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(r => r.Rating)
+                </div>
+                <div class="form-group required">
+                    <label for="Review" class="col-lg-2 control-label">Review</label>
+                    <div class="col-lg-6">
+                        @Html.TextAreaFor(r => r.Review, new { @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(r => r.Review)
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-6 col-lg-offset-2">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        @Html.ActionLink("Cancel", "Index", "Reviews")
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    }
+</section>
+@Html.ActionLink("Back", "Index", "Reviews")
+@section Scripts
+{
+    @*<script src="~/Scripts/bootstrap-datepicker.js"></script>*@
+    <script src="~/Scripts/jquery-ui-1.8.20.min.js"></script>
+    @*<script src="~/Scripts/typeahead.bundle.js"></script>*@
+    <script>
+        $(function () {
+            $("#ReviewedDate").datepicker();
+
+            $('#Movie').autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        type: "GET",
+                        url: "@Model.WebRoot/Admin/Lookup/Movies?query=" + request.term,
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (data) {
+                            response(data);
+                        }
+                    });
+                }
+            });
+
+            $('#Reviewer').autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        type: "GET",
+                        url: "@Model.WebRoot/Admin/Lookup/Reviewers?query=" + request.term,
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (data) {
+                            response(data);
+                        }
+                    });
+                }
+            });
+        });        
+  </script>
+}
+@section Styles
+{
+    <link href="~/Content/themes/base/jquery.ui.core.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/jquery.ui.autocomplete.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/jquery.ui.datepicker.css" rel="stylesheet" />
+    @*<link href="~/Content/css/datepicker.css" rel="stylesheet" />*@
+}

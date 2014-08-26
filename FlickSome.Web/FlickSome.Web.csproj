@@ -153,8 +153,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Admin\AccountController.cs" />
+    <Compile Include="Controllers\Admin\LookupController.cs" />
     <Compile Include="Controllers\Admin\BaseController.cs" />
     <Compile Include="Controllers\Admin\MoviesController.cs" />
+    <Compile Include="Controllers\Admin\ReviewersController.cs" />
     <Compile Include="Controllers\Admin\ReviewsController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
@@ -165,6 +167,7 @@
     <Compile Include="Helpers\Extensions\EnumExtensions.cs" />
     <Compile Include="Helpers\HtmlHelpers\SimplePager.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\ImageModel.cs" />
     <Compile Include="Models\ModelFactory.cs" />
     <Compile Include="Models\MovieModel.cs" />
@@ -290,6 +293,10 @@
     <Content Include="Views\Movies\Index.cshtml" />
     <Content Include="Views\Movies\Edit.cshtml" />
     <Content Include="Views\Movies\Crop.cshtml" />
+    <Content Include="Views\Reviewers\Index.cshtml" />
+    <Content Include="Views\Reviewers\Edit.cshtml" />
+    <Content Include="Views\Reviews\Edit.cshtml" />
+    <Content Include="Views\Reviews\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\directives\" />

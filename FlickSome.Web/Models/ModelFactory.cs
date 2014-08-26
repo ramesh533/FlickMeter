@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Web.Mvc;
 
 namespace FlickSome.Web.Models
 {
@@ -57,13 +58,19 @@ namespace FlickSome.Web.Models
                     Rating = mr.Rating,
                     TagLine = mr.TagLine,
                     Review = mr.Review,
-                    Reviewer = new ReviewerModel()
-                    {
-                        Id = mr.Reviewer.Id,
-                        Name = mr.Reviewer.Name,
-                        SiteUrl = mr.Reviewer.SiteUrl
-                    }
+                    Reviewer = mr.Reviewer.Name,
+                    Movie = mr.Movie == null ? string.Empty : mr.Movie.Title
                 };
+        }
+
+        public ReviewerModel Create(Reviewer r)
+        {
+            return new ReviewerModel()
+                    {
+                        Id = r.Id,
+                        Name = r.Name,
+                        SiteUrl = r.SiteUrl
+                    };
         }
 
         public Movie Parse(Movie movie, MovieModel movieModel, IUnitOfWork _unitOfWork)
@@ -77,7 +84,42 @@ namespace FlickSome.Web.Models
             return movie;
         }
 
-        public ICollection<MovieArtist> ParseArtists(Movie movie, MovieModel movieModel, IUnitOfWork _unitOfWork)
+        public bool TryParse(MovieReview review, ReviewModel reviewModel, IUnitOfWork _unitOfWork, ModelStateDictionary modelState)
+        {
+            bool isValid = true;
+            var movie = _unitOfWork.Repository<Movie>().Query()
+                .Filter(m => m.Title.ToLower() == reviewModel.Movie.ToLower())
+                .FirstOrDefault();
+            if (movie == null)
+            {
+                modelState.AddModelError("Movie", "Not a valid Movie");
+                isValid = false;
+            }
+            var reviewer = _unitOfWork.Repository<Reviewer>().Query()
+                .Filter(r => r.Name.ToLower() == reviewModel.Reviewer.ToLower())
+                .FirstOrDefault();
+            if (reviewer == null)
+            {
+                modelState.AddModelError("Reviewer", "Not a valid Reviewer");
+                isValid = false;
+            }
+            review.Movie = movie;
+            review.Reviewer = reviewer;
+            review.ReviewedDate = reviewModel.ReviewedDate;
+            review.TagLine = reviewModel.TagLine;
+            review.Rating = reviewModel.Rating;
+            review.Review = reviewModel.Review;
+            return isValid;
+        }
+
+        public Reviewer Parse(Reviewer reviewer, ReviewerModel reviewerModel)
+        {
+            reviewer.Name = reviewerModel.Name;
+            reviewer.SiteUrl = reviewerModel.SiteUrl;
+            return reviewer;
+        }
+
+        private ICollection<MovieArtist> ParseArtists(Movie movie, MovieModel movieModel, IUnitOfWork _unitOfWork)
         {
             MovieArtist movieArtist;
             ArtistRole[] roles = { ArtistRole.Hero, ArtistRole.Heroin, ArtistRole.Director, ArtistRole.Producer, ArtistRole.MusicDirector };
@@ -121,5 +163,6 @@ namespace FlickSome.Web.Models
             }
             return movie.Artists;
         }
-    }
+    
+}
 }

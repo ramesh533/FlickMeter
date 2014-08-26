@@ -12,7 +12,7 @@ namespace FlickSome.Data.Entities
     {
         public int Id { get; set; }
         public virtual DateTime ReviewedDate { get; set; }
-        public int Rating { get; set; }
+        public double Rating { get; set; }
         public string TagLine { get; set; }
         public string Review { get; set; }
 

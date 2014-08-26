@@ -23,9 +23,15 @@ font-size: 24px;
   content:"*";
   color:red;
 }
-.datepicker{
-    background-color: #fff;
-    color: #000;
+.ui-datepicker{
+    background-color: #fff !important;
+    color: #000 !important;
+}
+.ui-datepicker a{
+    color: #000 !important;
+}
+ui-datepicker a span{
+    color: #000 !important;
 }
 .ui-autocomplete{
     background-color: #fff;

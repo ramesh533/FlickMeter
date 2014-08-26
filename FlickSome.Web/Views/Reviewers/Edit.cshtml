@@ -1,0 +1,41 @@
+﻿@using FlickSome.Web.Helpers.Extensions
+@model FlickSome.Web.Models.ReviewerModel
+@{
+    ViewBag.Title = "Reviewer";
+}
+
+<hgroup class="title">
+    <h2>@ViewBag.Title</h2>
+</hgroup>
+<section id="editForm">
+    @using (Html.BeginForm("Edit", "Reviewers", new { id = Model.Id }, FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="well bs-component">
+            <fieldset>
+                <div class="form-group required">
+                    <label for="Name" class="col-lg-2 control-label">Name</label>
+                    <div class="col-lg-6">
+                        @Html.TextBoxFor(r => r.Name, new { @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(r => r.Name)
+                </div>
+                <div class="form-group required">
+                    <label for="SiteUrl" class="col-lg-2 control-label">Website</label>
+                    <div class="col-lg-6">
+                        @Html.TextBoxFor(r => r.SiteUrl, new { @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(r => r.SiteUrl)
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-6 col-lg-offset-2">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        @Html.ActionLink("Cancel", "Index", "Reviewers")
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    }
+</section>
+@Html.ActionLink("Back", "Index", "Reviewers")
